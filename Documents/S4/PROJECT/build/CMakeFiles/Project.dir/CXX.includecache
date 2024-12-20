@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Graphic.h
+iostream
+-
+iomanip
+-
+
+/home/stud2022/2starzyk/Documents/S4/PROJECT/src/Graphic.cpp
+Graphic.h
+/home/stud2022/2starzyk/Documents/S4/PROJECT/src/Graphic.h
+

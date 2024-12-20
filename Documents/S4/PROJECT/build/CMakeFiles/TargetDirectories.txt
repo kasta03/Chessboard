@@ -1,0 +1,3 @@
+/home/stud2022/2starzyk/Documents/S4/PROJECT/build/CMakeFiles/Project.dir
+/home/stud2022/2starzyk/Documents/S4/PROJECT/build/CMakeFiles/edit_cache.dir
+/home/stud2022/2starzyk/Documents/S4/PROJECT/build/CMakeFiles/rebuild_cache.dir

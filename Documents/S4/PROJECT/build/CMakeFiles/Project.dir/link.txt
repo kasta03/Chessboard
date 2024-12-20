@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -rdynamic CMakeFiles/Project.dir/Project.cpp.o CMakeFiles/Project.dir/src/Graphic.cpp.o CMakeFiles/Project.dir/src/move.cpp.o -o Project 
