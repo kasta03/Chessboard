@@ -4,6 +4,6 @@
 
 #define U64 unsigned long long
 
-void printPicePosition(U64 &picesType);
+void printPiecePosition(const U64 &piecesType);
 
 void graphicBoard();

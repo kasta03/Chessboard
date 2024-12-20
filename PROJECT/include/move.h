@@ -8,6 +8,9 @@ namespace NS_mask
     U64 whitePiecesMask(Board &board);
 }
 
+//removing captured piece
+void pieceToCapture(U64 toMask, std::vector<U64> &pieces);
+
 //removing black pices after capture
 void pieceToCaptureBlack(U64 toMask, Board &board);
 
@@ -25,3 +28,18 @@ void moveWhiteKnight(Board &board, int from, int to);
 
 //moving black pony
 void moveBlackKnight(Board &board, int from, int to);
+
+//moving white bishop
+void moveWhiteBishop(Board &board, int from, int to);
+
+//moving black bishop
+void moveBlackBishop(Board &board, int from, int to);
+
+//moving white rook
+void moveWhiteRook(Board &board, int from, int to);
+
+//moving black rook
+void moveBlackRook(Board &board, int from, int to);
+
+//moving white queen
+void moveWhiteQueen(Board &board, int from, int to);
