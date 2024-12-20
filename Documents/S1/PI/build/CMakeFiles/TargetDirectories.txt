@@ -1,3 +1,0 @@
-/home/stud2022/2starzyk/Documents/PI/build/CMakeFiles/rebuild_cache.dir
-/home/stud2022/2starzyk/Documents/PI/build/CMakeFiles/edit_cache.dir
-/home/stud2022/2starzyk/Documents/PI/build/CMakeFiles/main.dir
