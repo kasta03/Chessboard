@@ -20,14 +20,23 @@ void moveWhiteBishop(Board &board, int from, int to)
         printError();
         return;
     }
+    
+    if (!(from_Mask & board._whitePieces[Queen]))
+    {
+        printError();
+        return;
+    }
 
     int steps = diff_rank;
-    int direction_change = (to - from)/steps;
+    int direction_change = (to - from) / steps;
     U64 current_Mask = from_Mask;
 
     for (steps; steps > 1; --steps)
     {
-        current_Mask <<= direction_change;
+        if (direction_change > 0)
+            current_Mask <<= direction_change;
+        else if (direction_change < 0)
+            current_Mask >>= std::abs(direction_change);
 
         if (current_Mask & (NS_mask::whitePiecesMask(board) | NS_mask::blackPiecesMask(board)))
         {
@@ -67,14 +76,23 @@ void moveBlackBishop(Board &board, int from, int to)
         printError();
         return;
     }
+    
+    if (!(from_Mask & board._blackPieces[Queen]))
+    {
+        printError();
+        return;
+    }
 
     int steps = diff_rank;
-    int direction_change = (to - from)/steps;
+    int direction_change = (to - from) / steps;
     U64 current_Mask = from_Mask;
 
     for (steps; steps > 1; --steps)
     {
-        current_Mask <<= direction_change;
+        if (direction_change > 0)
+            current_Mask <<= direction_change;
+        else if (direction_change < 0)
+            current_Mask >>= std::abs(direction_change);
 
         if (current_Mask & (NS_mask::whitePiecesMask(board) | NS_mask::blackPiecesMask(board)))
         {

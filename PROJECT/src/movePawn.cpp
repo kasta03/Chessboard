@@ -35,9 +35,10 @@ void moveWhitePawn(Board &board, int from, int to)
     // if there is no pawn
     else
     {
-        std::cout << "There is no pawn";
+        printError();
         return;
     }
+    
     if (to / 8 == 7) 
     {
         int n = 0;
@@ -94,7 +95,7 @@ void moveBlackPawn(Board &board, int from, int to)
     // if there is no pawn
     else
     {
-        std::cout << "There is no pawn";
+        printError();
         return;
     }
     if (to / 8 == 0) 

@@ -15,7 +15,13 @@ void moveWhiteRook(Board &board, int from, int to)
     int diff_rank = std::abs(from_rank - to_rank);
     int diff_file = std::abs(from_file - to_file);
 
-    if(diff_rank != 0 && diff_file != 0)
+    if (diff_rank != 0 && diff_file != 0)
+    {
+        printError();
+        return;
+    }
+
+    if (!(from_Mask & board._whitePieces[Queen]))
     {
         printError();
         return;
@@ -25,35 +31,37 @@ void moveWhiteRook(Board &board, int from, int to)
     int direction_change = 0;
     int steps = 0;
 
-    if(diff_file != 0)
+    if (diff_file != 0)
     {
-        direction_change = (to - from)/diff_file;
         steps = diff_file;
+        direction_change = (to - from) / diff_file;
+        direction_change = direction_change / steps;
     }
     else
     {
-        direction_change = (to - from);
         steps = diff_rank;
+        direction_change = (to - from) / steps;
     }
 
-    for(steps; steps > 1; --steps)
+    for (steps; steps > 1; --steps)
     {
-        current_Mask <<= direction_change;
+        if (direction_change > 0)
+            current_Mask <<= direction_change;
+        else if (direction_change < 0)
+            current_Mask >>= std::abs(direction_change);
 
-        // std::cout << steps << std::endl;
-
-        if(current_Mask & (NS_mask::whitePiecesMask(board) | NS_mask::blackPiecesMask(board)))
+        if (current_Mask & (NS_mask::whitePiecesMask(board) | NS_mask::blackPiecesMask(board)))
         {
             printError();
             return;
         }
     }
 
-    if(from_Mask & board._whitePieces[Rooks] && to_Mask ^ NS_mask::whitePiecesMask(board))
+    if (from_Mask & board._whitePieces[Rooks] && to_Mask ^ NS_mask::blackPiecesMask(board))
     {
         board._whitePieces[Rooks] ^= from_Mask;
         board._whitePieces[Rooks] |= to_Mask;
-        if(to_Mask & NS_mask::blackPiecesMask(board))
+        if (to_Mask & NS_mask::blackPiecesMask(board))
         {
             pieceToCaptureBlack(to_Mask, board);
         }
@@ -75,7 +83,13 @@ void moveBlackRook(Board &board, int from, int to)
     int diff_rank = std::abs(from_rank - to_rank);
     int diff_file = std::abs(from_file - to_file);
 
-    if(diff_rank != 0 && diff_file != 0)
+    if (diff_rank != 0 && diff_file != 0)
+    {
+        printError();
+        return;
+    }
+    
+    if (!(from_Mask & board._blackPieces[Queen]))
     {
         printError();
         return;
@@ -85,35 +99,37 @@ void moveBlackRook(Board &board, int from, int to)
     int direction_change = 0;
     int steps = 0;
 
-    if(diff_file != 0)
+    if (diff_file != 0)
     {
-        direction_change = (to - from)/diff_file;
         steps = diff_file;
+        direction_change = (to - from) / diff_file;
+        direction_change = direction_change / steps;
     }
     else
     {
-        direction_change = (to - from);
         steps = diff_rank;
+        direction_change = (to - from) / steps;
     }
 
-    for(steps; steps > 1; --steps)
+    for (steps; steps > 1; --steps)
     {
-        current_Mask <<= direction_change;
+        if (direction_change > 0)
+            current_Mask <<= direction_change;
+        else if (direction_change < 0)
+            current_Mask >>= std::abs(direction_change);
 
-        // std::cout << steps << std::endl;
-
-        if(current_Mask & (NS_mask::whitePiecesMask(board) | NS_mask::blackPiecesMask(board)))
+        if (current_Mask & (NS_mask::whitePiecesMask(board) | NS_mask::blackPiecesMask(board)))
         {
             printError();
             return;
         }
     }
 
-    if(from_Mask & board._blackPieces[Rooks] && to_Mask ^ NS_mask::blackPiecesMask(board))
+    if (from_Mask & board._blackPieces[Rooks] && to_Mask ^ NS_mask::whitePiecesMask(board))
     {
         board._blackPieces[Rooks] ^= from_Mask;
         board._blackPieces[Rooks] |= to_Mask;
-        if(to_Mask & NS_mask::whitePiecesMask(board))
+        if (to_Mask & NS_mask::whitePiecesMask(board))
         {
             pieceToCaptureWhite(to_Mask, board);
         }

@@ -1,6 +1,5 @@
 #include "move.h"
 
-
 void moveWhiteQueen(Board &board, int from, int to)
 {
     U64 from_Mask = 1ULL;
@@ -16,7 +15,13 @@ void moveWhiteQueen(Board &board, int from, int to)
     int diff_rank = std::abs(from_rank - to_rank);
     int diff_file = std::abs(from_file - to_file);
 
-    if((diff_rank != 0 && diff_file != 0) && (diff_rank != diff_file))
+    if ((diff_rank != 0 && diff_file != 0) && (diff_rank != diff_file))
+    {
+        printError();
+        return;
+    }
+    
+    if (!(from_Mask & board._whitePieces[Queen]))
     {
         printError();
         return;
@@ -26,40 +31,42 @@ void moveWhiteQueen(Board &board, int from, int to)
     int direction_change = 0;
     int steps = 0;
 
-    if(diff_rank == diff_file)
+    if (diff_rank == diff_file)
     {
-        int steps = diff_rank;
-        int direction_change = (to - from)/steps;
-    }
-    else if(diff_file != 0)
-    {
-        direction_change = (to - from)/diff_file;
-        steps = diff_file;
-    }
-    else if(diff_rank != 0)
-    {
-        direction_change = (to - from);
         steps = diff_rank;
+        direction_change = (to - from) / steps;
+    }
+    else if (diff_file != 0)
+    {
+        steps = diff_file;
+        direction_change = (to - from) / diff_file;
+        direction_change = direction_change / steps;
+    }
+    else if (diff_rank != 0)
+    {
+        steps = diff_rank;
+        direction_change = (to - from) / steps;
     }
 
-    for(steps; steps > 1; --steps)
+    for (steps; steps > 1; --steps)
     {
-        current_Mask <<= direction_change;
+        if (direction_change > 0)
+            current_Mask <<= direction_change;
+        else if (direction_change < 0)
+            current_Mask >>= std::abs(direction_change);
 
-        std::cout << steps << std::endl;
-
-        if(current_Mask & (NS_mask::whitePiecesMask(board) | NS_mask::blackPiecesMask(board)))
+        if (current_Mask & (NS_mask::whitePiecesMask(board) | NS_mask::blackPiecesMask(board)))
         {
             printError();
             return;
         }
     }
 
-    if(from_Mask & board._whitePieces[Queen] && to_Mask ^ NS_mask::whitePiecesMask(board))
+    if (from_Mask & board._whitePieces[Queen] && to_Mask ^ NS_mask::whitePiecesMask(board))
     {
         board._whitePieces[Queen] ^= from_Mask;
         board._whitePieces[Queen] |= to_Mask;
-        if(to_Mask & NS_mask::blackPiecesMask(board))
+        if (to_Mask & NS_mask::blackPiecesMask(board))
         {
             pieceToCaptureBlack(to_Mask, board);
         }
@@ -81,7 +88,13 @@ void moveBlackQueen(Board &board, int from, int to)
     int diff_rank = std::abs(from_rank - to_rank);
     int diff_file = std::abs(from_file - to_file);
 
-    if((diff_rank != 0 && diff_file != 0) && (diff_rank != diff_file))
+    if ((diff_rank != 0 && diff_file != 0) && (diff_rank != diff_file))
+    {
+        printError();
+        return;
+    }
+
+    if (!(from_Mask & board._blackPieces[Queen]))
     {
         printError();
         return;
@@ -91,42 +104,49 @@ void moveBlackQueen(Board &board, int from, int to)
     int direction_change = 0;
     int steps = 0;
 
-    if(diff_rank == diff_file)
+    if (diff_rank == diff_file)
     {
         int steps = diff_rank;
-        int direction_change = (to - from)/steps;
+        int direction_change = (to - from) / steps;
     }
-    else if(diff_file != 0)
+    else if (diff_file != 0)
     {
-        direction_change = (to - from)/diff_file;
         steps = diff_file;
+        direction_change = (to - from) / diff_file;
+        direction_change = direction_change / steps;
     }
-    else if(diff_rank != 0)
+    else if (diff_rank != 0)
     {
-        direction_change = (to - from);
         steps = diff_rank;
+        direction_change = (to - from) / steps;
     }
 
-    for(steps; steps > 1; --steps)
+    for (steps; steps > 1; --steps)
     {
-        current_Mask <<= direction_change;
+        if (direction_change > 0)
+            current_Mask <<= direction_change;
+        else if (direction_change < 0)
+            current_Mask >>= std::abs(direction_change);
 
-        std::cout << steps << std::endl;
-
-        if(current_Mask & (NS_mask::blackPiecesMask(board) | NS_mask::whitePiecesMask(board)))
+        if (current_Mask & (NS_mask::blackPiecesMask(board) | NS_mask::whitePiecesMask(board)))
         {
             printError();
             return;
         }
     }
 
-    if(from_Mask & board._blackPieces[Queen] && to_Mask ^ NS_mask::blackPiecesMask(board))
+    if (from_Mask & board._blackPieces[Queen] && to_Mask ^ NS_mask::blackPiecesMask(board))
     {
         board._blackPieces[Queen] ^= from_Mask;
         board._blackPieces[Queen] |= to_Mask;
-        if(to_Mask & NS_mask::whitePiecesMask(board))
+        if (to_Mask & NS_mask::whitePiecesMask(board))
         {
             pieceToCaptureWhite(to_Mask, board);
         }
+    }
+    else
+    {
+        std::cout << "Error" << std::endl;
+        printError();
     }
 }

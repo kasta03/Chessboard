@@ -15,7 +15,7 @@ void moveWhiteKing(Board &board, int from, int to)
     int diff_rank = std::abs(from_rank - to_rank);
     int diff_file = std::abs(from_file - to_file);
 
-    if(diff_rank > 1 || diff_file > 1)
+    if (diff_rank > 1 || diff_file > 1)
     {
         printError();
         return;
@@ -28,6 +28,11 @@ void moveWhiteKing(Board &board, int from, int to)
         {
             pieceToCaptureBlack(to_Mask, board);
         }
+    }
+    else
+    {
+        printError();
+        return;
     }
 }
 
@@ -46,7 +51,7 @@ void moveBlackKing(Board &board, int from, int to)
     int diff_rank = std::abs(from_rank - to_rank);
     int diff_file = std::abs(from_file - to_file);
 
-    if(diff_rank > 1 || diff_file > 1)
+    if (diff_rank > 1 || diff_file > 1)
     {
         printError();
         return;
