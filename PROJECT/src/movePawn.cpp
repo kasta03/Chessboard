@@ -42,12 +42,13 @@ void moveWhitePawn(Board &board, int from, int to)
     {
         int n = 0;
         std::cout << "What should be pawn promoted to? 1 - Queen, 2 - Rook, 3 - Bishop, 4 - Knight" << std::endl;
-        std::cin << n << std::endl;
+        std::cin >> n;
         std::cout << "Succesfully promoted to: " << n << std::endl;
+        
+        board._whitePieces[Pawns] ^= to_Mask;
 
         switch (n)
         {
-            board._whitePieces[Pawns] ^= to_Mask;
             case 1:
                 board._whitePieces[Queen] ^= to_Mask;
             case 2:
@@ -103,9 +104,10 @@ void moveBlackPawn(Board &board, int from, int to)
         std::cin >> n;
         std::cout << "Successfully promoted to: " << n << std::endl;
 
+        board._blackPieces[Pawns] ^= to_Mask;
+
         switch (n)
         {
-            board._blackPieces[Pawns] ^= to_Mask;
             case 1:
                 board._blackPieces[Queen] ^= to_Mask;
                 break;
