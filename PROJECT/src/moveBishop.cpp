@@ -19,16 +19,24 @@ void moveWhiteBishop(Board &board, int from, int to)
 
     int diff_rank = std::abs(from_rank - to_rank);
     int diff_file = std::abs(from_file - to_file);
+    std::cout << "from" << from << std::endl;
+    std::cout << "to" << to << std::endl;
+    std::cout << "diff_rank: " << diff_rank << std::endl;
+    std::cout << "diff_file: " << diff_file << std::endl;
+    std::cout << "from_rank: " << from_rank << std::endl;
+    std::cout << "to_rank: " << to_rank << std::endl;
+    std::cout << "from_file: " << from_file << std::endl;
+    std::cout << "to_file: " << to_file << std::endl;
 
     if (diff_rank != diff_file)
     {
-        printError();
+        // printError();
         return;
     }
     
     if (!(from_Mask & board._whitePieces[Bishops]))
     {
-        printError();
+        // printError();
         return;
     }
 
