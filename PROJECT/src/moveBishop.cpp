@@ -26,7 +26,7 @@ void moveWhiteBishop(Board &board, int from, int to)
         return;
     }
     
-    if (!(from_Mask & board._whitePieces[Queen]))
+    if (!(from_Mask & board._whitePieces[Bishops]))
     {
         printError();
         return;
@@ -93,7 +93,7 @@ void moveBlackBishop(Board &board, int from, int to)
         return;
     }
     
-    if (!(from_Mask & board._blackPieces[Queen]))
+    if (!(from_Mask & board._blackPieces[Bishops]))
     {
         printError();
         return;

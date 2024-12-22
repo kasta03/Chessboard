@@ -26,7 +26,7 @@ void moveWhiteRook(Board &board, int from, int to)
         return;
     }
 
-    if (!(from_Mask & board._whitePieces[Queen]))
+    if (!(from_Mask & board._whitePieces[Rooks]))
     {
         printError();
         return;
@@ -105,7 +105,7 @@ void moveBlackRook(Board &board, int from, int to)
         return;
     }
     
-    if (!(from_Mask & board._blackPieces[Queen]))
+    if (!(from_Mask & board._blackPieces[Rooks]))
     {
         printError();
         return;
