@@ -2,6 +2,11 @@
 
 void moveWhiteQueen(Board &board, int from, int to)
 {
+    if(board.permission == 1)
+    {
+        printError();
+        return;
+    }
     U64 from_Mask = 1ULL;
     U64 to_Mask = 1ULL;
     from_Mask <<= from;
@@ -66,15 +71,25 @@ void moveWhiteQueen(Board &board, int from, int to)
     {
         board._whitePieces[Queen] ^= from_Mask;
         board._whitePieces[Queen] |= to_Mask;
+        flipSide(board);
         if (to_Mask & NS_mask::blackPiecesMask(board))
         {
             pieceToCaptureBlack(to_Mask, board);
         }
     }
+    else
+    {
+        printError();
+    }
 }
 
 void moveBlackQueen(Board &board, int from, int to)
 {
+    if(board.permission == 0)
+    {
+        printError();
+        return;
+    }
     U64 from_Mask = 1ULL;
     U64 to_Mask = 1ULL;
     from_Mask <<= from;
@@ -139,6 +154,7 @@ void moveBlackQueen(Board &board, int from, int to)
     {
         board._blackPieces[Queen] ^= from_Mask;
         board._blackPieces[Queen] |= to_Mask;
+        flipSide(board);
         if (to_Mask & NS_mask::whitePiecesMask(board))
         {
             pieceToCaptureWhite(to_Mask, board);
@@ -146,7 +162,6 @@ void moveBlackQueen(Board &board, int from, int to)
     }
     else
     {
-        std::cout << "Error" << std::endl;
         printError();
     }
 }

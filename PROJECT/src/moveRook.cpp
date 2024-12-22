@@ -2,6 +2,11 @@
 
 void moveWhiteRook(Board &board, int from, int to)
 {
+    if(board.permission == 1)
+    {
+        printError();
+        return;
+    }
     U64 from_Mask = 1ULL;
     U64 to_Mask = 1ULL;
     from_Mask <<= from;
@@ -61,15 +66,26 @@ void moveWhiteRook(Board &board, int from, int to)
     {
         board._whitePieces[Rooks] ^= from_Mask;
         board._whitePieces[Rooks] |= to_Mask;
+        flipSide(board);
         if (to_Mask & NS_mask::blackPiecesMask(board))
         {
             pieceToCaptureBlack(to_Mask, board);
         }
     }
+    else
+    {
+        printError();
+        return;
+    }
 }
 
 void moveBlackRook(Board &board, int from, int to)
 {
+    if (board.permission == 0)
+    {
+        printError();
+        return;
+    }
     U64 from_Mask = 1ULL;
     U64 to_Mask = 1ULL;
     from_Mask <<= from;
@@ -129,9 +145,15 @@ void moveBlackRook(Board &board, int from, int to)
     {
         board._blackPieces[Rooks] ^= from_Mask;
         board._blackPieces[Rooks] |= to_Mask;
+        flipSide(board);
         if (to_Mask & NS_mask::whitePiecesMask(board))
         {
             pieceToCaptureWhite(to_Mask, board);
         }
+    }
+    else
+    {
+        printError();
+        return;
     }
 }

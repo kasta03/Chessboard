@@ -1,5 +1,9 @@
 #include "move.h"
 
+void flipSide(Board &board)
+{
+    board.permission = !board.permission;
+}
 
 void printError()
 {

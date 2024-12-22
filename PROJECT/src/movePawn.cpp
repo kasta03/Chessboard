@@ -1,8 +1,12 @@
 #include "move.h"
 
-
 void moveWhitePawn(Board &board, int from, int to)
 {
+    if(board.permission == 1)
+    {
+        printError();
+        return;
+    }
     // Setting masks
     U64 from_Mask = 1ULL;
     U64 to_Mask = 1ULL;
@@ -38,6 +42,8 @@ void moveWhitePawn(Board &board, int from, int to)
         printError();
         return;
     }
+
+    flipSide(board);
     
     if (to / 8 == 7) 
     {
@@ -58,12 +64,20 @@ void moveWhitePawn(Board &board, int from, int to)
                 board._whitePieces[Bishops] ^= to_Mask;
             case 4:
                 board._whitePieces[Knights] ^= to_Mask;
+            default:
+                std::cout << "Invalid choice for promotion." << std::endl;
+                return;
         }
     }
 }
 
 void moveBlackPawn(Board &board, int from, int to)
 {
+    if(board.permission == 0)
+    {
+        printError();
+        return;
+    }
     // Checking if the piece is at pointed
     U64 from_Mask = 1ULL;
     U64 to_Mask = 1ULL;
@@ -98,6 +112,9 @@ void moveBlackPawn(Board &board, int from, int to)
         printError();
         return;
     }
+
+    flipSide(board);
+
     if (to / 8 == 0) 
     {
         int n = 0;

@@ -4,6 +4,7 @@
 
 struct Board
 {
+    int permission = 0;
 
     std::vector<U64> _whitePieces =
         {

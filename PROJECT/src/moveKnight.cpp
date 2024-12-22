@@ -2,6 +2,11 @@
 
 void moveWhiteKnight(Board &board, int from, int to)
 {
+    if(board.permission == 1)
+    {
+        printError();
+        return;
+    }
     U64 from_Mask = 1ULL;
     U64 to_Mask = 1ULL;
     from_Mask <<= from;
@@ -21,6 +26,7 @@ void moveWhiteKnight(Board &board, int from, int to)
         {
             board._whitePieces[Knights] ^= from_Mask;
             board._whitePieces[Knights] |= to_Mask;
+            flipSide(board);
             if (to_Mask & NS_mask::blackPiecesMask(board))
             {
                 pieceToCaptureBlack(to_Mask, board);
@@ -36,6 +42,11 @@ void moveWhiteKnight(Board &board, int from, int to)
 
 void moveBlackKnight(Board &board, int from, int to)
 {
+    if(board.permission == 0)
+    {
+        printError();
+        return;
+    }
     U64 from_Mask = 1ULL;
     U64 to_Mask = 1ULL;
     from_Mask <<= from;
@@ -55,6 +66,7 @@ void moveBlackKnight(Board &board, int from, int to)
         {
             board._blackPieces[Knights] ^= from_Mask;
             board._blackPieces[Knights] |= to_Mask;
+            flipSide(board);
             if (to_Mask & NS_mask::whitePiecesMask(board))
             {
                 pieceToCaptureWhite(to_Mask, board);
