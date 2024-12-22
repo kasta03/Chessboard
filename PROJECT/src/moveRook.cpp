@@ -77,6 +77,14 @@ void moveWhiteRook(Board &board, int from, int to)
         printError();
         return;
     }
+    if (from == 0)
+    {
+        board.whiteLongCastle = false;
+    }
+    else if (from == 7)
+    {
+        board.whiteShortCastle = false;
+    }
 }
 
 void moveBlackRook(Board &board, int from, int to)
@@ -155,5 +163,13 @@ void moveBlackRook(Board &board, int from, int to)
     {
         printError();
         return;
+    }
+    if (from == 56)
+    {
+        board.blackLongCastle = false;
+    }
+    else if (from == 63)
+    {
+        board.blackShortCastle = false;
     }
 }

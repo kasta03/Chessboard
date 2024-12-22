@@ -57,10 +57,12 @@ int main()
     mask = NS_mask::blackPiecesMask(board) | NS_mask::whitePiecesMask(board);
     printPiecePosition(mask);
 
-    // Move 5: Black castles kingside
-    moveBlackKing(board, E8, F8);  // King to G8
+    // Black castles queenside
+    moveBlackKing(board, E8, G8);
     mask = NS_mask::blackPiecesMask(board) | NS_mask::whitePiecesMask(board);
     printPiecePosition(mask);
+
+    std::cout << "Black short castle: " << board.blackLongCastle << std::endl;
 
     // Move 6: White plays e3
     moveWhitePawn(board, E2, E3);

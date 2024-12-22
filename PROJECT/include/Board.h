@@ -5,6 +5,10 @@
 struct Board
 {
     int permission = 0;
+    bool whiteShortCastle = true;
+    bool whiteLongCastle = true;
+    bool blackShortCastle = true;
+    bool blackLongCastle = true;
 
     std::vector<U64> _whitePieces =
         {
