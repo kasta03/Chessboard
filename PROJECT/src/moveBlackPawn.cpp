@@ -10,6 +10,7 @@ void moveBlackPawn(Board &board, int from, int to)
     if (board.permission == 0)
     {
         printError();
+        std::cout << "It's white turn" << std::endl;
         return;
     }
     bool validMove = false;

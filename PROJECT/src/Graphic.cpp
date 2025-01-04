@@ -27,7 +27,7 @@ void printPiecePosition(const U64 &picesType)
         for (int file = 0; file < 8; ++file)
         {
             U64 positionMask = 1ULL << file + rank * 8;
-            if (positionMask  & picesType)
+            if (positionMask & picesType)
             {
                 std::cout << "1 ";
             }
@@ -54,11 +54,11 @@ void drawBoard(sf::RenderWindow &window, Board &board)
             square.setPosition(file * SQUARE_SIZE, rank * SQUARE_SIZE);
             if ((rank + file) % 2 == 0)
             {
-                square.setFillColor(sf::Color::White);
+                square.setFillColor(sf::Color(155, 155, 155));
             }
             else
             {
-                square.setFillColor(sf::Color::Red);
+                square.setFillColor(sf::Color::Blue);
             }
             window.draw(square);
         }
@@ -99,12 +99,112 @@ void drawBoard(sf::RenderWindow &window, Board &board)
             {
                 sprites[pieceType].setPosition(file * SQUARE_SIZE, rank * SQUARE_SIZE);
                 window.draw(sprites[pieceType]);
-                std::cout << "White piece: " << pieceType << " at position: " << pos << std::endl;
             }
             if (mask & board._blackPieces[pieceType])
             {
                 sprites[pieceType + 6].setPosition(file * SQUARE_SIZE, rank * SQUARE_SIZE);
                 window.draw(sprites[pieceType + 6]);
+            }
+        }
+    }
+
+    sf::Event event;
+    struct selectedPiece
+    {
+        int pieceType;
+        int pos;
+        bool isWhite;
+        bool selected = false;
+    };
+
+    static selectedPiece piece = {-1, -1, false};
+
+    static U64 to_square = -1;
+
+    while (window.pollEvent(event))
+    {
+        if (event.type == sf::Event::MouseButtonPressed)
+        {
+            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+            int file = mousePosition.x / SQUARE_SIZE;
+            int rank = 7 - (mousePosition.y / SQUARE_SIZE) % 8;
+            for (int pieceType = 0; pieceType < 6; ++pieceType)
+            {
+                U64 mask = 1ULL << file + rank * 8;
+                if (mask & board._whitePieces[pieceType])
+                {
+                    piece = {pieceType, file + rank * 8, true, true};
+                    std::cout << piece.pos << std::endl;
+                }
+                else if (mask & board._blackPieces[pieceType])
+                {
+                    piece = {pieceType, file + rank * 8, false, true};
+                }
+            }
+            if (piece.selected == true)
+            {
+                to_square = file + rank * 8;
+            }
+            if (piece.isWhite && to_square != piece.pos) 
+            {
+                switch (piece.pieceType)
+                {
+                case Pawns:
+                    moveWhitePawn(board, piece.pos, to_square);
+                    break;
+                case Knights:
+                    moveWhiteKnight(board, piece.pos, to_square);
+                    break;
+                case Bishops:
+                    moveWhiteBishop(board, piece.pos, to_square);
+                    break;
+                case Rooks:
+                    moveWhiteRook(board, piece.pos, to_square);
+                    break;
+                case Queen:
+                    moveWhiteQueen(board, piece.pos, to_square);
+                    break;
+                case King:
+                    moveWhiteKing(board, piece.pos, to_square);
+                    break;
+                }
+                std::cout << to_square << std::endl;
+                U64 mask = NS_mask::blackPiecesMask(board) | NS_mask::whitePiecesMask(board);
+                printPiecePosition(mask);
+
+                piece = {-1, -1, false, false};
+                to_square = -1;
+            }
+            else if (!piece.isWhite && to_square != piece.pos) 
+            {
+                switch (piece.pieceType)
+                {
+                case Pawns:
+                    moveBlackPawn(board, piece.pos, to_square);
+                    std::cout << "Black pawn" << std::endl;
+                    break;
+                case Knights:
+                    moveBlackKnight(board, piece.pos, to_square);
+                    break;
+                case Bishops:
+                    moveBlackBishop(board, piece.pos, to_square);
+                    break;
+                case Rooks:
+                    moveBlackRook(board, piece.pos, to_square);
+                    break;
+                case Queen:
+                    moveBlackQueen(board, piece.pos, to_square);
+                    break;
+                case King:
+                    moveBlackKing(board, piece.pos, to_square);
+                    break;
+                }
+                std::cout << to_square << std::endl;
+                U64 mask = NS_mask::blackPiecesMask(board) | NS_mask::whitePiecesMask(board);
+                printPiecePosition(mask);
+
+                piece = {-1, -1, false, false};
+                to_square = -1;
             }
         }
     }

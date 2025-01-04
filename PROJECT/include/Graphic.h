@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include "Board.h"
+#include "move.h"
 #include <SFML/Graphics.hpp>
 
 #define U64 unsigned long long
