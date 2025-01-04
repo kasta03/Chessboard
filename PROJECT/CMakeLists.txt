@@ -21,6 +21,8 @@ include_directories(${INCLUDES})
 
 file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp")
 
+add_compile_definitions(PROJECTPATH="${CMAKE_SOURCE_DIR}")
+
 # Specify the SFML directory explicitly
 set(SFML_DIR "C:/Users/kstar/Documents/SFML-2.6.2/lib/cmake/SFML")
 
