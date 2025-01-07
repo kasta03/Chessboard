@@ -39,8 +39,7 @@ void moveWhiteRook(Board &board, int from, int to)
     if (diff_file != 0)
     {
         steps = diff_file;
-        direction_change = (to - from) / diff_file;
-        direction_change = direction_change / steps;
+        direction_change = (to - from) / steps;
     }
     else
     {
@@ -126,8 +125,7 @@ void moveBlackRook(Board &board, int from, int to)
     if (diff_file != 0)
     {
         steps = diff_file;
-        direction_change = (to - from) / diff_file;
-        direction_change = direction_change / steps;
+        direction_change = (to - from) / steps;
     }
     else
     {

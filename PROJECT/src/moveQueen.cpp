@@ -44,8 +44,7 @@ void moveWhiteQueen(Board &board, int from, int to)
     else if (diff_file != 0)
     {
         steps = diff_file;
-        direction_change = (to - from) / diff_file;
-        direction_change = direction_change / steps;
+        direction_change = (to - from) / steps;
     }
     else if (diff_rank != 0)
     {
@@ -127,8 +126,7 @@ void moveBlackQueen(Board &board, int from, int to)
     else if (diff_file != 0)
     {
         steps = diff_file;
-        direction_change = (to - from) / diff_file;
-        direction_change = direction_change / steps;
+        direction_change = (to - from) / steps;
     }
     else if (diff_rank != 0)
     {

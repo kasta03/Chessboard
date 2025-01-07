@@ -130,6 +130,7 @@ void drawBoard(sf::RenderWindow &window, Board &board)
             int rank = 7 - (mousePosition.y / SQUARE_SIZE) % 8;
             for (int pieceType = 0; pieceType < 6; ++pieceType)
             {
+                if (piece.selected == true) break;
                 U64 mask = 1ULL << file + rank * 8;
                 if (mask & board._whitePieces[pieceType])
                 {
